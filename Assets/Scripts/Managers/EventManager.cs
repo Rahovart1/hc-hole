@@ -5,6 +5,6 @@ using UnityEngine.Events;
 
 public class EventManager : Singleton<EventManager>
 {
-    public UnityEvent onCollect;
+    public UnityEvent<CollectibleType> onCollect;
     public UnityEvent onLevelUp;
 }

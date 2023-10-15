@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public enum CollectibleType
+public class AudioClip
 {
-    small,
-    medium,
-    large,
+    public string name;
+    public AudioClip audioClip;
 }

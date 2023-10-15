@@ -11,8 +11,15 @@ public class Level : MonoBehaviour
     {
         CalculatePercentage();    
     }
-    public void GainXp(int xp)
-    {
+    public void GainXp(CollectibleType type)
+    {   
+        int xp = type switch
+        {
+            CollectibleType.small => 5,
+            CollectibleType.medium => 8,
+            CollectibleType.large => 15,
+        };
+
         _currentXp += xp;
 
         if (_currentXp >= _xpToLevelUp)
