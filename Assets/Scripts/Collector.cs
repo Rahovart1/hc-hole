@@ -1,16 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using System;
 
 public class Collector : MonoBehaviour
 {
+    public int[] collectibles;
+
+    private void Start()
+    {
+       collectibles = new int[Enum.GetNames(typeof(CollectibleType)).Length];
+    }
+    private void OnEnable()
+    {
+        EventManager.Instance.onCollect.AddListener(Collect);    
+    }
+    private void OnDisable()
+    {
+        EventManager.Instance.onCollect.RemoveListener(Collect);    
+    }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out Collectible collectible))
+        if (other.TryGetComponent(out ICollectible collectible))
         {
-            EventManager.Instance.onCollect?.Invoke(collectible.GetCollectibleType());
-            Destroy(other.gameObject);
+            collectible.Collect();
         }
+    }
+
+    public void Collect(CollectibleType type)
+    {
+        collectibles[(int)type] += 1;
     }
 }
